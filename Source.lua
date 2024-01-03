@@ -1,6 +1,6 @@
-local redzLib = {
+local SyrexLib = {
   Themes = --{},
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIB.v-2/main/Themes.lua"))(),
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Themes.lua"))(),
   Save = {
     Flags = {},
     Theme = "Default",
@@ -8,7 +8,7 @@ local redzLib = {
     ScrollSize = 160,
     TransparencyHub = 0.1
   },
-  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIB.v-2/main/Icons.lua"))()
+  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Icons.lua"))()
   SaveForTheme = {
     Stroke = {},
     Buttons = {},
@@ -33,7 +33,7 @@ local Player = Players.LocalPlayer
 local function GetIcon(GetName)
   if #GetName:split("") < 1 then return GetName end
   
-  for iconName,rbxassetid in pairs(redzLib.Icons) do
+  for iconName,rbxassetid in pairs(SyrexHubLib.Icons) do
     local Name1 = GetName:lower():gsub("lucide", ""):gsub("-", "")
     local Name2 = iconName:lower():gsub("lucide", ""):gsub("-", "")
     
@@ -41,7 +41,7 @@ local function GetIcon(GetName)
       return rbxassetid
     end
   end
-  for iconName,rbxassetid in pairs(redzLib.Icons) do
+  for iconName,rbxassetid in pairs(SyrexHubLib.Icons) do
     local Name1 = GetName:lower():gsub("lucide", ""):gsub("-", "")
     local Name2 = iconName:lower():gsub("lucide", ""):gsub("-", "")
     
@@ -90,7 +90,7 @@ local function FindTable(table, val)
 end
 
 local function VerifyTheme(ThemeName)
-  for name,__ in pairs(redzLib.Themes) do
+  for name,__ in pairs(SyrexHubLib.Themes) do
     if name == ThemeName then
       return true
     end
@@ -102,17 +102,17 @@ local function LoadSettings(FileName)
     local decode = HttpService:JSONDecode(readfile(FileName))
     
     if typeof(decode) == "table" then
-      if FindTable(decode, "ScrollSize") then redzLib.Save["ScrollSize"] = decode["ScrollSize"]end
-      if FindTable(decode, "UISize") then redzLib.Save["UISize"] = decode["UISize"]end
-      if FindTable(decode, "Theme") and VerifyTheme(decode["Theme"]) then redzLib.Save["Theme"] = decode["Theme"]end
-      if FindTable(decode, "Flags") then redzLib.Save["Flags"] = decode["Flags"]end
-      if FindTable(decode, "TransparencyHub")then redzLib.Save["TransparencyHub"] = decode["TransparencyHub"]end
+      if FindTable(decode, "ScrollSize") then SyrexHubLib.Save["ScrollSize"] = decode["ScrollSize"]end
+      if FindTable(decode, "UISize") then SyrexHubLib.Save["UISize"] = decode["UISize"]end
+      if FindTable(decode, "Theme") and VerifyTheme(decode["Theme"]) then SyrexHubLib.Save["Theme"] = decode["Theme"]end
+      if FindTable(decode, "Flags") then SyrexHubLib.Save["Flags"] = decode["Flags"]end
+      if FindTable(decode, "TransparencyHub")then SyrexHubLib.Save["TransparencyHub"] = decode["TransparencyHub"]end
     end
   end
-end;LoadSettings("redz library V4.lua")
+end;LoadSettings("SyrexHub library V4.lua")
 
 -- Theme local
-local Theme = redzLib.Themes[redzLib.Save.Theme]
+local Theme = SyrexHubLib.Themes[SyrexHubLib.Save.Theme]
 
 -- functions local
 local function SaveSenttigs(FileName, save)
@@ -160,7 +160,7 @@ local function MakeDrag(Instance)
 	return Instance
 end
 local function insertTheme(instance, Theme)
-  table.insert(redzLib.SaveForTheme[Theme], instance)
+  table.insert(SyrexHubLib.SaveForTheme[Theme], instance)
   if typeof(instance) == "table" then
     return instance[1]
   end
@@ -170,7 +170,7 @@ local function Corner(props, Circle)
   local New = Create("UICorner", {
     CornerRadius = Circle and UDim.new(0.5, 0) or Theme["Corner Radius"]
   })SetProps(New, props)
-  if not Circle then table.insert(redzLib.SaveForTheme.Corner, New)end
+  if not Circle then table.insert(SyrexHubLib.SaveForTheme.Corner, New)end
   return New
 end
 local function Stroke(props)
@@ -179,7 +179,7 @@ local function Stroke(props)
     Thickness = Theme["Stroke Thickness"],
     ApplyStrokeMode = "Border"
   })SetProps(New, props)
-  table.insert(redzLib.SaveForTheme.Stroke, New)
+  table.insert(SyrexHubLib.SaveForTheme.Stroke, New)
   return New
 end
 local function Button(parent, props, childrens)
@@ -190,7 +190,7 @@ local function Button(parent, props, childrens)
     BackgroundTransparency = Theme["Transparency"],
     Name = "Frame"
   }, {Corner()})SetProps(New, props)SetChildren(New, childrens)
-  table.insert(redzLib.SaveForTheme.Buttons, New)
+  table.insert(SyrexHubLib.SaveForTheme.Buttons, New)
   return New
 end
 local function AddConnection(Instance, Connection, func)
@@ -209,7 +209,7 @@ end
 
 -- ScreenGui
 local ScreenGui = Create("ScreenGui", CoreGui, {
-  Name = "redz library V4"
+  Name = "SyrexHub library V4"
 }, {
   Create("UIScale", {
     Scale = UIScale
@@ -238,7 +238,7 @@ task.spawn(function()
     })
   })
   
-  function redzLib:MakeNotify(Configs)
+  function SyrexHubLib:MakeNotify(Configs)
     local NTitle = Configs[1] or Configs.Title or "Notification"
     local NText = Configs[2] or Configs.Text or "This is a notification"
     local NTime = Configs[3] or Configs.Time or 5
@@ -350,14 +350,14 @@ task.spawn(function()
 end)
 
 -- Themes
-function redzLib:GetIcon(IconName)
+function SyrexHubLib:GetIcon(IconName)
   return GetIcon(IconName)
 end
-function redzLib:SetTransparency(NewVal)
+function SyrexHubLib:SetTransparency(NewVal)
   local NewVal = math.clamp(NewVal, 0, 0.5)
-  redzLib.Save.TransparencyHub = NewVal
+  SyrexHubLib.Save.TransparencyHub = NewVal
   
-  local Save = redzLib.SaveForTheme
+  local Save = SyrexHubLib.SaveForTheme
   table.foreach(Save.Frames, function(_,Intance)
     Intance.BackgroundTransparency = NewVal
   end)
@@ -365,17 +365,17 @@ function redzLib:SetTransparency(NewVal)
     Intance.BackgroundTransparency = NewVal
   end)
 end
-function redzLib:CreateTheme(ThemeName, Configs)
-  redzLib.Themes[ThemeName] = Configs
+function SyrexHubLib:CreateTheme(ThemeName, Configs)
+  SyrexHubLib.Themes[ThemeName] = Configs
 end
-function redzLib:SetTheme(themeName)
+function SyrexHubLib:SetTheme(themeName)
   if not VerifyTheme(themeName) then return end
   
-  Theme, redzLib.Save.Theme = redzLib.Themes[themeName], themeName
-  Theme["Transparency"] = redzLib.Save.TransparencyHub
+  Theme, SyrexHubLib.Save.Theme = SyrexHubLib.Themes[themeName], themeName
+  Theme["Transparency"] = SyrexHubLib.Save.TransparencyHub
   
-  local Save = redzLib.SaveForTheme
-  SaveSenttigs("redz library V4.lua", redzLib.Save)
+  local Save = SyrexHubLib.SaveForTheme
+  SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
   
   table.foreach(Save.Frames, function(_,Intance)
     if not Intance then return end
@@ -435,24 +435,24 @@ function redzLib:SetTheme(themeName)
     end
   end)
 end
-function redzLib:GetThemes()
+function SyrexHubLib:GetThemes()
   local Themes = {}
-  table.foreach(redzLib.Themes, function(ThemeName)
+  table.foreach(SyrexHubLib.Themes, function(ThemeName)
     table.insert(Themes, ThemeName)
   end)
   return Themes
 end
 
 -- Window
-function redzLib:Visible(Bool)ScreenGui.Enabled = Bool end
-function redzLib:Destroy()SreenGui:Destroy()end
-function redzLib:MakeWindow(Configs)
+function SyrexHubLib:Visible(Bool)ScreenGui.Enabled = Bool end
+function SyrexHubLib:Destroy()SreenGui:Destroy()end
+function SyrexHubLib:MakeWindow(Configs)
   local Minimized, WaitMinimize, SavedSize
-  local WTitle = Configs[1] or Configs.Name or "redz library"
+  local WTitle = Configs[1] or Configs.Name or "SyrexHub library"
   
   local MainFrame = MakeDrag(insertTheme(Create("Frame", ScreenGui, {
-    Size = UDim2.fromOffset(unpack(redzLib.Save.UISize)),
-    Position = UDim2.new(0.5, -redzLib.Save.UISize[1]/2, 0.5, -redzLib.Save.UISize[2]/2),
+    Size = UDim2.fromOffset(unpack(SyrexHubLib.Save.UISize)),
+    Position = UDim2.new(0.5, -SyrexHubLib.Save.UISize[1]/2, 0.5, -SyrexHubLib.Save.UISize[2]/2),
     Active = true,
     BackgroundColor3 = Theme["Color Hub 1"],
     BackgroundTransparency = Theme["Transparency"]
@@ -464,7 +464,7 @@ function redzLib:MakeWindow(Configs)
   })
   
   local MainScroll = Create("ScrollingFrame", MainFrame, {
-    Size = UDim2.new(0, redzLib.Save.ScrollSize, 1, -Topbar.Size.Y.Offset),
+    Size = UDim2.new(0, SyrexHubLib.Save.ScrollSize, 1, -Topbar.Size.Y.Offset),
     Position = UDim2.new(0, 0, 1, 0),
     AnchorPoint = Vector2.new(0, 1),
     ScrollBarThickness = 1,
@@ -519,13 +519,13 @@ function redzLib:MakeWindow(Configs)
   
   ConnectSave(ControlSize1, function()
     if not Minimized then
-      redzLib.Save.UISize = {MainFrame.Size.X.Offset, MainFrame.Size.Y.Offset}
-      SaveSenttigs("redz library V4.lua", redzLib.Save)
+      SyrexHubLib.Save.UISize = {MainFrame.Size.X.Offset, MainFrame.Size.Y.Offset}
+      SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
     end
   end)
   ConnectSave(ControlSize2, function()
-    redzLib.Save.ScrollSize = MainScroll.Size.X.Offset
-    SaveSenttigs("redz library V4.lua", redzLib.Save)
+    SyrexHubLib.Save.ScrollSize = MainScroll.Size.X.Offset
+    SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
   end)
   
   local DialogBackground = insertTheme(AddConnection(Create("TextButton", MainFrame, {
@@ -716,7 +716,7 @@ function redzLib:MakeWindow(Configs)
     if typeof(NewVal) == "string" then
       LabelTitle.Text = NewVal
     elseif typeof(NewVal) == "number" then
-      redzLib:SetTransparency(NewVal)
+      SyrexHubLib:SetTransparency(NewVal)
     end
   end
   function Window:MakeTab(Configs)
@@ -1043,8 +1043,8 @@ function redzLib:MakeWindow(Configs)
       local ToggleTable = {}
       function ToggleTable:GetToggle()return Default end
       
-      if Save and typeof(Save) == "string" and FindTable(redzLib.Save.Flags, Save) then
-        Default = redzLib.Save.Flags[Save]
+      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
+        Default = SyrexHubLib.Save.Flags[Save]
       end
       
       local Frame = Button(Container, {Size = UDim2.new(1, 0, 0, 25)})
@@ -1085,8 +1085,8 @@ function redzLib:MakeWindow(Configs)
       
       local function SaveToggle()
         if Save and typeof(Save) == "string" then
-          redzLib.Save.Flags[Save] = Default
-          SaveSenttigs("redz library V4.lua", redzLib.Save)
+          SyrexHubLib.Save.Flags[Save] = Default
+          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
         end
       end
       
@@ -1145,8 +1145,8 @@ function redzLib:MakeWindow(Configs)
       local Save = Configs[7] or Configs.Save or false
       local SliderCallback = {}
       
-      if Save and typeof(Save) == "string" and FindTable(redzLib.Save.Flags, Save) then
-        Default = redzLib.Save.Flags[Save]
+      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
+        Default = SyrexHubLib.Save.Flags[Save]
       end
       
       local Frame = Button(Container, {Size = UDim2.new(1, 0, 0, 25)})
@@ -1213,8 +1213,8 @@ function redzLib:MakeWindow(Configs)
       
       local function SaveSlider()
         if Save and typeof(Save) == "string" then
-          redzLib.Save.Flags[Save] = Default
-          SaveSenttigs("redz library V4.lua", redzLib.Save)
+          SyrexHubLib.Save.Flags[Save] = Default
+          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
         end
       end
       
@@ -1279,8 +1279,8 @@ function redzLib:MakeWindow(Configs)
       local Callback = Configs[3] or Configs.Callback or function()end
       local Save = Configs[4] or Configs.Save or false
       
-      if Save and typeof(Save) == "string" and FindTable(redzLib.Save.Flags, Save) then
-        DefaultColor = Color3.fromRGB(unpack(redzLib.Save.Flags[Save]))
+      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
+        DefaultColor = Color3.fromRGB(unpack(SyrexHubLib.Save.Flags[Save]))
       end
       
       local ColorH, ColorS, ColorV = Color3.toHSV(DefaultColor)
@@ -1316,8 +1316,8 @@ function redzLib:MakeWindow(Configs)
             tonumber(str[3]) * 255
           }
           
-          redzLib.Save.Flags[Save] = Color
-          SaveSenttigs("redz library V4.lua", redzLib.Save)
+          SyrexHubLib.Save.Flags[Save] = Color
+          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
         end
       end
       
@@ -1593,8 +1593,8 @@ function redzLib:MakeWindow(Configs)
       local Callback = Configs[5] or Configs.Callback or function()end
       local Save = Configs[6] or Configs.Save or false
       
-      if Save and typeof(Save) == "string" and FindTable(redzLib.Save.Flags, Save) then
-        Default = redzLib.Save.Flags[Save]
+      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
+        Default = SyrexHubLib.Save.Flags[Save]
       end
       local Frame = Button(Container, {Size = UDim2.new(1, 0, 0, 25)}, {Corner()})
       local MainContainer = Create("Frame", Frame, {
@@ -1655,11 +1655,11 @@ function redzLib:MakeWindow(Configs)
       local function SaveDropdown()
         if Save and typeof(Save) == "string" then
           if MultSelect then
-            redzLib.Save.Flags[Save] = SelectedOptionT
+            SyrexHubLib.Save.Flags[Save] = SelectedOptionT
           else
-            redzLib.Save.Flags[Save] = {SelectedOption}
+            SyrexHubLib.Save.Flags[Save] = {SelectedOption}
           end
-          SaveSenttigs("redz library V4.lua", redzLib.Save)
+          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
         end
       end
       local function Void()
@@ -1904,8 +1904,8 @@ function redzLib:MakeWindow(Configs)
       local Save = Configs[6] or Configs.Save or false
       local TextBoxCallback = {}
       
-      if Save and typeof(Save) == "string" and FindTable(redzLib.Save.Flags, Save) then
-        Default = redzLib.Save.Flags[Save]
+      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
+        Default = SyrexHubLib.Save.Flags[Save]
       end
       
       local Frame = Button(Container, {
@@ -1957,8 +1957,8 @@ function redzLib:MakeWindow(Configs)
         end)
         task.spawn(Callback, NewText)
         if Save and typeof(Save) == "string" then
-          redzLib.Save.Flags[Save] = Default
-          SaveSenttigs("redz library V4.lua", redzLib.Save)
+          SyrexHubLib.Save.Flags[Save] = Default
+          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
         end
       end
       
@@ -2122,4 +2122,4 @@ function redzLib:MakeWindow(Configs)
   return Window
 end
 
-return redzLib
+return SyrexHubLib

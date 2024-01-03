@@ -1,6 +1,6 @@
 local SyrexLib = {
   Themes = --{},
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/SyrexHUB/SyrexLibV4/main/Themes.lua"))(),
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Themes.lua"))(),
   Save = {
     Flags = {},
     Theme = "Default",
@@ -8,7 +8,7 @@ local SyrexLib = {
     ScrollSize = 160,
     TransparencyHub = 0.1
   },
-  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/SyrexHUB/SyrexLibV4/main/Icons.lua"))() --[[
+  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Icons.lua"))() --[[
     I found this source on fluent but I don't know who created it
     source -- https://github.com/dawid-scripts/Fluent/blob/master/src/Icons.lua --
   ]],

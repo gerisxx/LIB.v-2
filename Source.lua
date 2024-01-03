@@ -1,6 +1,6 @@
 local SyrexLib = {
   Themes = --{},
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Themes.lua"))(),
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/SyrexHUB/SyrexLibV4/main/Themes.lua"))(),
   Save = {
     Flags = {},
     Theme = "Default",
@@ -8,7 +8,10 @@ local SyrexLib = {
     ScrollSize = 160,
     TransparencyHub = 0.1
   },
-  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Icons.lua"))()
+  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/SyrexHUB/SyrexLibV4/main/Icons.lua"))() --[[
+    I found this source on fluent but I don't know who created it
+    source -- https://github.com/dawid-scripts/Fluent/blob/master/src/Icons.lua --
+  ]],
   SaveForTheme = {
     Stroke = {},
     Buttons = {},
@@ -33,7 +36,7 @@ local Player = Players.LocalPlayer
 local function GetIcon(GetName)
   if #GetName:split("") < 1 then return GetName end
   
-  for iconName,rbxassetid in pairs(SyrexHubLib.Icons) do
+  for iconName,rbxassetid in pairs(SyrexLib.Icons) do
     local Name1 = GetName:lower():gsub("lucide", ""):gsub("-", "")
     local Name2 = iconName:lower():gsub("lucide", ""):gsub("-", "")
     
@@ -41,7 +44,7 @@ local function GetIcon(GetName)
       return rbxassetid
     end
   end
-  for iconName,rbxassetid in pairs(SyrexHubLib.Icons) do
+  for iconName,rbxassetid in pairs(SyrexLib.Icons) do
     local Name1 = GetName:lower():gsub("lucide", ""):gsub("-", "")
     local Name2 = iconName:lower():gsub("lucide", ""):gsub("-", "")
     
@@ -90,7 +93,7 @@ local function FindTable(table, val)
 end
 
 local function VerifyTheme(ThemeName)
-  for name,__ in pairs(SyrexHubLib.Themes) do
+  for name,__ in pairs(SyrexLib.Themes) do
     if name == ThemeName then
       return true
     end
@@ -102,17 +105,17 @@ local function LoadSettings(FileName)
     local decode = HttpService:JSONDecode(readfile(FileName))
     
     if typeof(decode) == "table" then
-      if FindTable(decode, "ScrollSize") then SyrexHubLib.Save["ScrollSize"] = decode["ScrollSize"]end
-      if FindTable(decode, "UISize") then SyrexHubLib.Save["UISize"] = decode["UISize"]end
-      if FindTable(decode, "Theme") and VerifyTheme(decode["Theme"]) then SyrexHubLib.Save["Theme"] = decode["Theme"]end
-      if FindTable(decode, "Flags") then SyrexHubLib.Save["Flags"] = decode["Flags"]end
-      if FindTable(decode, "TransparencyHub")then SyrexHubLib.Save["TransparencyHub"] = decode["TransparencyHub"]end
+      if FindTable(decode, "ScrollSize") then SyrexLib.Save["ScrollSize"] = decode["ScrollSize"]end
+      if FindTable(decode, "UISize") then SyrexLib.Save["UISize"] = decode["UISize"]end
+      if FindTable(decode, "Theme") and VerifyTheme(decode["Theme"]) then SyrexLib.Save["Theme"] = decode["Theme"]end
+      if FindTable(decode, "Flags") then SyrexLib.Save["Flags"] = decode["Flags"]end
+      if FindTable(decode, "TransparencyHub")then SyrexLib.Save["TransparencyHub"] = decode["TransparencyHub"]end
     end
   end
-end;LoadSettings("SyrexHub library V4.lua")
+end;LoadSettings("Syrex library V4.lua")
 
 -- Theme local
-local Theme = SyrexHubLib.Themes[SyrexHubLib.Save.Theme]
+local Theme = SyrexLib.Themes[SyrexLib.Save.Theme]
 
 -- functions local
 local function SaveSenttigs(FileName, save)
@@ -160,7 +163,7 @@ local function MakeDrag(Instance)
 	return Instance
 end
 local function insertTheme(instance, Theme)
-  table.insert(SyrexHubLib.SaveForTheme[Theme], instance)
+  table.insert(SyrexLib.SaveForTheme[Theme], instance)
   if typeof(instance) == "table" then
     return instance[1]
   end
@@ -170,7 +173,7 @@ local function Corner(props, Circle)
   local New = Create("UICorner", {
     CornerRadius = Circle and UDim.new(0.5, 0) or Theme["Corner Radius"]
   })SetProps(New, props)
-  if not Circle then table.insert(SyrexHubLib.SaveForTheme.Corner, New)end
+  if not Circle then table.insert(SyrexLib.SaveForTheme.Corner, New)end
   return New
 end
 local function Stroke(props)
@@ -179,7 +182,7 @@ local function Stroke(props)
     Thickness = Theme["Stroke Thickness"],
     ApplyStrokeMode = "Border"
   })SetProps(New, props)
-  table.insert(SyrexHubLib.SaveForTheme.Stroke, New)
+  table.insert(SyrexLib.SaveForTheme.Stroke, New)
   return New
 end
 local function Button(parent, props, childrens)
@@ -190,7 +193,7 @@ local function Button(parent, props, childrens)
     BackgroundTransparency = Theme["Transparency"],
     Name = "Frame"
   }, {Corner()})SetProps(New, props)SetChildren(New, childrens)
-  table.insert(SyrexHubLib.SaveForTheme.Buttons, New)
+  table.insert(SyrexLib.SaveForTheme.Buttons, New)
   return New
 end
 local function AddConnection(Instance, Connection, func)
@@ -209,7 +212,7 @@ end
 
 -- ScreenGui
 local ScreenGui = Create("ScreenGui", CoreGui, {
-  Name = "SyrexHub library V4"
+  Name = "Syrex library V4"
 }, {
   Create("UIScale", {
     Scale = UIScale
@@ -238,7 +241,7 @@ task.spawn(function()
     })
   })
   
-  function SyrexHubLib:MakeNotify(Configs)
+  function SyrexLib:MakeNotify(Configs)
     local NTitle = Configs[1] or Configs.Title or "Notification"
     local NText = Configs[2] or Configs.Text or "This is a notification"
     local NTime = Configs[3] or Configs.Time or 5
@@ -350,14 +353,14 @@ task.spawn(function()
 end)
 
 -- Themes
-function SyrexHubLib:GetIcon(IconName)
+function SyrexLib:GetIcon(IconName)
   return GetIcon(IconName)
 end
-function SyrexHubLib:SetTransparency(NewVal)
+function SyrexLib:SetTransparency(NewVal)
   local NewVal = math.clamp(NewVal, 0, 0.5)
-  SyrexHubLib.Save.TransparencyHub = NewVal
+  SyrexLib.Save.TransparencyHub = NewVal
   
-  local Save = SyrexHubLib.SaveForTheme
+  local Save = SyrexLib.SaveForTheme
   table.foreach(Save.Frames, function(_,Intance)
     Intance.BackgroundTransparency = NewVal
   end)
@@ -365,17 +368,17 @@ function SyrexHubLib:SetTransparency(NewVal)
     Intance.BackgroundTransparency = NewVal
   end)
 end
-function SyrexHubLib:CreateTheme(ThemeName, Configs)
-  SyrexHubLib.Themes[ThemeName] = Configs
+function SyrexLib:CreateTheme(ThemeName, Configs)
+  SyrexLib.Themes[ThemeName] = Configs
 end
-function SyrexHubLib:SetTheme(themeName)
+function SyrexLib:SetTheme(themeName)
   if not VerifyTheme(themeName) then return end
   
-  Theme, SyrexHubLib.Save.Theme = SyrexHubLib.Themes[themeName], themeName
-  Theme["Transparency"] = SyrexHubLib.Save.TransparencyHub
+  Theme, SyrexLib.Save.Theme = SyrexLib.Themes[themeName], themeName
+  Theme["Transparency"] = SyrexLib.Save.TransparencyHub
   
-  local Save = SyrexHubLib.SaveForTheme
-  SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
+  local Save = SyrexLib.SaveForTheme
+  SaveSenttigs("Syrex library V4.lua", SyrexLib.Save)
   
   table.foreach(Save.Frames, function(_,Intance)
     if not Intance then return end
@@ -435,24 +438,24 @@ function SyrexHubLib:SetTheme(themeName)
     end
   end)
 end
-function SyrexHubLib:GetThemes()
+function SyrexLib:GetThemes()
   local Themes = {}
-  table.foreach(SyrexHubLib.Themes, function(ThemeName)
+  table.foreach(SyrexLib.Themes, function(ThemeName)
     table.insert(Themes, ThemeName)
   end)
   return Themes
 end
 
 -- Window
-function SyrexHubLib:Visible(Bool)ScreenGui.Enabled = Bool end
-function SyrexHubLib:Destroy()SreenGui:Destroy()end
-function SyrexHubLib:MakeWindow(Configs)
+function SyrexLib:Visible(Bool)ScreenGui.Enabled = Bool end
+function SyrexLib:Destroy()SreenGui:Destroy()end
+function SyrexLib:MakeWindow(Configs)
   local Minimized, WaitMinimize, SavedSize
-  local WTitle = Configs[1] or Configs.Name or "SyrexHub library"
+  local WTitle = Configs[1] or Configs.Name or "Syrex library"
   
   local MainFrame = MakeDrag(insertTheme(Create("Frame", ScreenGui, {
-    Size = UDim2.fromOffset(unpack(SyrexHubLib.Save.UISize)),
-    Position = UDim2.new(0.5, -SyrexHubLib.Save.UISize[1]/2, 0.5, -SyrexHubLib.Save.UISize[2]/2),
+    Size = UDim2.fromOffset(unpack(SyrexLib.Save.UISize)),
+    Position = UDim2.new(0.5, -SyrexLib.Save.UISize[1]/2, 0.5, -SyrexLib.Save.UISize[2]/2),
     Active = true,
     BackgroundColor3 = Theme["Color Hub 1"],
     BackgroundTransparency = Theme["Transparency"]
@@ -464,7 +467,7 @@ function SyrexHubLib:MakeWindow(Configs)
   })
   
   local MainScroll = Create("ScrollingFrame", MainFrame, {
-    Size = UDim2.new(0, SyrexHubLib.Save.ScrollSize, 1, -Topbar.Size.Y.Offset),
+    Size = UDim2.new(0, SyrexLib.Save.ScrollSize, 1, -Topbar.Size.Y.Offset),
     Position = UDim2.new(0, 0, 1, 0),
     AnchorPoint = Vector2.new(0, 1),
     ScrollBarThickness = 1,
@@ -519,13 +522,13 @@ function SyrexHubLib:MakeWindow(Configs)
   
   ConnectSave(ControlSize1, function()
     if not Minimized then
-      SyrexHubLib.Save.UISize = {MainFrame.Size.X.Offset, MainFrame.Size.Y.Offset}
-      SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
+      SyrexLib.Save.UISize = {MainFrame.Size.X.Offset, MainFrame.Size.Y.Offset}
+      SaveSenttigs("Syrex library V4.lua", SyrexLib.Save)
     end
   end)
   ConnectSave(ControlSize2, function()
-    SyrexHubLib.Save.ScrollSize = MainScroll.Size.X.Offset
-    SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
+    SyrexLib.Save.ScrollSize = MainScroll.Size.X.Offset
+    SaveSenttigs("Syrex library V4.lua", SyrexLib.Save)
   end)
   
   local DialogBackground = insertTheme(AddConnection(Create("TextButton", MainFrame, {
@@ -716,7 +719,7 @@ function SyrexHubLib:MakeWindow(Configs)
     if typeof(NewVal) == "string" then
       LabelTitle.Text = NewVal
     elseif typeof(NewVal) == "number" then
-      SyrexHubLib:SetTransparency(NewVal)
+      SyrexLib:SetTransparency(NewVal)
     end
   end
   function Window:MakeTab(Configs)
@@ -1043,8 +1046,8 @@ function SyrexHubLib:MakeWindow(Configs)
       local ToggleTable = {}
       function ToggleTable:GetToggle()return Default end
       
-      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
-        Default = SyrexHubLib.Save.Flags[Save]
+      if Save and typeof(Save) == "string" and FindTable(SyrexLib.Save.Flags, Save) then
+        Default = SyrexLib.Save.Flags[Save]
       end
       
       local Frame = Button(Container, {Size = UDim2.new(1, 0, 0, 25)})
@@ -1085,8 +1088,8 @@ function SyrexHubLib:MakeWindow(Configs)
       
       local function SaveToggle()
         if Save and typeof(Save) == "string" then
-          SyrexHubLib.Save.Flags[Save] = Default
-          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
+          SyrexLib.Save.Flags[Save] = Default
+          SaveSenttigs("Syrex library V4.lua", SyrexLib.Save)
         end
       end
       
@@ -1145,8 +1148,8 @@ function SyrexHubLib:MakeWindow(Configs)
       local Save = Configs[7] or Configs.Save or false
       local SliderCallback = {}
       
-      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
-        Default = SyrexHubLib.Save.Flags[Save]
+      if Save and typeof(Save) == "string" and FindTable(SyrexLib.Save.Flags, Save) then
+        Default = SyrexLib.Save.Flags[Save]
       end
       
       local Frame = Button(Container, {Size = UDim2.new(1, 0, 0, 25)})
@@ -1213,8 +1216,8 @@ function SyrexHubLib:MakeWindow(Configs)
       
       local function SaveSlider()
         if Save and typeof(Save) == "string" then
-          SyrexHubLib.Save.Flags[Save] = Default
-          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
+          SyrexLib.Save.Flags[Save] = Default
+          SaveSenttigs("Syrex library V4.lua", SyrexLib.Save)
         end
       end
       
@@ -1279,8 +1282,8 @@ function SyrexHubLib:MakeWindow(Configs)
       local Callback = Configs[3] or Configs.Callback or function()end
       local Save = Configs[4] or Configs.Save or false
       
-      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
-        DefaultColor = Color3.fromRGB(unpack(SyrexHubLib.Save.Flags[Save]))
+      if Save and typeof(Save) == "string" and FindTable(SyrexLib.Save.Flags, Save) then
+        DefaultColor = Color3.fromRGB(unpack(SyrexLib.Save.Flags[Save]))
       end
       
       local ColorH, ColorS, ColorV = Color3.toHSV(DefaultColor)
@@ -1316,8 +1319,8 @@ function SyrexHubLib:MakeWindow(Configs)
             tonumber(str[3]) * 255
           }
           
-          SyrexHubLib.Save.Flags[Save] = Color
-          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
+          SyrexLib.Save.Flags[Save] = Color
+          SaveSenttigs("Syrex library V4.lua", SyrexLib.Save)
         end
       end
       
@@ -1593,8 +1596,8 @@ function SyrexHubLib:MakeWindow(Configs)
       local Callback = Configs[5] or Configs.Callback or function()end
       local Save = Configs[6] or Configs.Save or false
       
-      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
-        Default = SyrexHubLib.Save.Flags[Save]
+      if Save and typeof(Save) == "string" and FindTable(SyrexLib.Save.Flags, Save) then
+        Default = SyrexLib.Save.Flags[Save]
       end
       local Frame = Button(Container, {Size = UDim2.new(1, 0, 0, 25)}, {Corner()})
       local MainContainer = Create("Frame", Frame, {
@@ -1655,11 +1658,11 @@ function SyrexHubLib:MakeWindow(Configs)
       local function SaveDropdown()
         if Save and typeof(Save) == "string" then
           if MultSelect then
-            SyrexHubLib.Save.Flags[Save] = SelectedOptionT
+            SyrexLib.Save.Flags[Save] = SelectedOptionT
           else
-            SyrexHubLib.Save.Flags[Save] = {SelectedOption}
+            SyrexLib.Save.Flags[Save] = {SelectedOption}
           end
-          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
+          SaveSenttigs("Syrex library V4.lua", SyrexLib.Save)
         end
       end
       local function Void()
@@ -1904,8 +1907,8 @@ function SyrexHubLib:MakeWindow(Configs)
       local Save = Configs[6] or Configs.Save or false
       local TextBoxCallback = {}
       
-      if Save and typeof(Save) == "string" and FindTable(SyrexHubLib.Save.Flags, Save) then
-        Default = SyrexHubLib.Save.Flags[Save]
+      if Save and typeof(Save) == "string" and FindTable(SyrexLib.Save.Flags, Save) then
+        Default = SyrexLib.Save.Flags[Save]
       end
       
       local Frame = Button(Container, {
@@ -1957,8 +1960,8 @@ function SyrexHubLib:MakeWindow(Configs)
         end)
         task.spawn(Callback, NewText)
         if Save and typeof(Save) == "string" then
-          SyrexHubLib.Save.Flags[Save] = Default
-          SaveSenttigs("SyrexHub library V4.lua", SyrexHubLib.Save)
+          SyrexLib.Save.Flags[Save] = Default
+          SaveSenttigs("Syrex library V4.lua", SyrexLib.Save)
         end
       end
       
@@ -2122,4 +2125,4 @@ function SyrexHubLib:MakeWindow(Configs)
   return Window
 end
 
-return SyrexHubLib
+return SyrexLib

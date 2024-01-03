@@ -1,12 +1,12 @@
-# redz Library V4
+# Syrex Hub Lib v2
 ## Library loadstring
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Source.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIB.v-2/main/Source.lua"))()
 ```
 
 library functions
 ```lua
-Library:SetTheme("Theme Name") -- https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Themes.lua
+Library:SetTheme("Theme Name") -- https://raw.githubusercontent.com/gerisxx/LIB.v-2/main/Themes.lua
 
 Library:SetTransparency(0.1) -- 0, 1
 
@@ -25,7 +25,7 @@ Instance:Visible(false)
 ## Window
 Create a Window
 ```lua
-local Window = Library:MakeWindow({"redz Library"})
+local Window = Library:MakeWindow({"Syrex Hub Library"})
 
 --[[
   Window:Set("New Title")
@@ -188,8 +188,8 @@ local Slider = Tab:AddSlider({
 Create a Discord Invite
 ```lua
 Tab:AddDiscordInvite({
-  DiscordTitle = "REDz Hub | Community",
+  DiscordTitle = "Syrex Hub Discord Server",
   DiscordIcon = "rbxassetid://15298567397",
-  DiscordLink = "https://discord.gg/7aR7kNVt4g"
+  DiscordLink = "https://discord.gg/SyrexHub"
 })
 ```

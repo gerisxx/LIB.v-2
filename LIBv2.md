@@ -193,3 +193,5 @@ Tab:AddDiscordInvite({
   DiscordLink = "https://discord.gg/SyrexHub"
 })
 ```
+## Credits
+` Credits To Redzhub!!`

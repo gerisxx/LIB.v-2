@@ -1,7 +1,7 @@
 # Syrex Hub Lib v2
 ## Library loadstring
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIB.v-2/main/Source.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Source.lua"))()
 ```
 
 library functions

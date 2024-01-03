@@ -1,6 +1,6 @@
 local redzLib = {
   Themes = --{},
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Themes.lua"))(),
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIB.v-2/main/Themes.lua"))(),
   Save = {
     Flags = {},
     Theme = "Default",
@@ -8,10 +8,7 @@ local redzLib = {
     ScrollSize = 160,
     TransparencyHub = 0.1
   },
-  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Icons.lua"))() --[[
-    I found this source on fluent but I don't know who created it
-    source -- https://github.com/dawid-scripts/Fluent/blob/master/src/Icons.lua --
-  ]],
+  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIB.v-2/main/Icons.lua"))()
   SaveForTheme = {
     Stroke = {},
     Buttons = {},

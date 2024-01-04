@@ -140,13 +140,13 @@ local Toggle = Tab:AddToggle({
 Create a Dropdown
 ```lua
 local Dropdown = Tab:AddDropdown({
-  Name = "Dropdown",
-  Options = {"1", "2", "3"}
-  Default = {"2"}
-  MultSelect = false
-  Callback = function(Value)
-    
-  end
+    Name = "Dropdown",
+    Options = {"1", "2", "3"},
+    Default = {"2"},
+    MultSelect = false,
+    Callback = function(Value)
+      
+    end
 })
 
 --[[

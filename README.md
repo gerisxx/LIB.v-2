@@ -1,18 +1,24 @@
-# Syrex Hub Lib v2
+# Syrex Library V4
 ## Library loadstring
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Source.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Source.lua"))()
 ```
 
 library functions
 ```lua
-Library:SetTheme("Theme Name") -- https://raw.githubusercontent.com/gerisxx/LIB.v-2/main/Themes.lua
+Library:SetTheme("Theme Name") -- https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Themes.lua
 
 Library:SetTransparency(0.1) -- 0, 1
 
 Library:GetThemes() -- void, return = table
 
 Library:GetIcon("Icon Name")
+
+-- ///////// 
+
+Library.info.PlaceName
+
+Library.info.Version
 ```
 
 ## Global Functions
@@ -25,10 +31,15 @@ Instance:Visible(false)
 ## Window
 Create a Window
 ```lua
-local Window = Library:MakeWindow({"Syrex Hub Library"})
+local Window = redzlib:MakeWindow({
+  Title = "Syrex HUB",
+  SubTitle = "by : cyx x redzhub",
+  LoadText = "Loading",
+  Flags = "Syrex Hub | Syrexhub.lua"
+})
 
 --[[
-  Window:Set("New Title")
+  Window:Set("New Title or Image")
 ]]
 ```
 
@@ -140,13 +151,13 @@ local Toggle = Tab:AddToggle({
 Create a Dropdown
 ```lua
 local Dropdown = Tab:AddDropdown({
-    Name = "Dropdown",
-    Options = {"1", "2", "3"},
-    Default = {"2"},
-    MultSelect = false,
-    Callback = function(Value)
-      
-    end
+  Name = "Dropdown",
+  Options = {"1", "2", "3"}
+  Default = {"2"}
+  MultSelect = false
+  Callback = function(Value)
+    
+  end
 })
 
 --[[
@@ -188,10 +199,25 @@ local Slider = Tab:AddSlider({
 Create a Discord Invite
 ```lua
 Tab:AddDiscordInvite({
-  DiscordTitle = "Syrex Hub Discord Server",
+  DiscordTitle = "REDz Hub | Community",
   DiscordIcon = "rbxassetid://15298567397",
-  DiscordLink = "https://discord.gg/SyrexHub"
+  DiscordLink = "https://discord.gg/7aR7kNVt4g"
 })
 ```
-## Credits
-` Credits To Redzhub!!`
+
+Create a Minimize Button
+```lua
+Window:AddMinimizeButton({
+  Button = {
+    -- Button Properties
+    Image = "rbxassetid://15298567397"
+  },
+  UICorner = {true,
+    -- Corner Properties
+    CornerRadius = UDim.new(0.5, 0)
+  },
+  UIStroke = {false, {
+    -- Stroke Properties
+  }}
+})
+```

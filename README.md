@@ -1,12 +1,12 @@
 # Syrex Library V4
 ## Library loadstring
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Source.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gerisxx/LIBv2/main/Sourcs.lua"))()
 ```
 
 library functions
 ```lua
-Library:SetTheme("Theme Name") -- https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Themes.lua
+Library:SetTheme("Theme Name") -- https://raw.githubusercontent.com/gerisxx/LIBv2/main/Icons.lua
 
 Library:SetTransparency(0.1) -- 0, 1
 
@@ -198,11 +198,11 @@ local Slider = Tab:AddSlider({
 ## Extra
 Create a Discord Invite
 ```lua
-Tab:AddDiscordInvite({
-  DiscordTitle = "REDz Hub | Community",
-  DiscordIcon = "rbxassetid://15298567397",
-  DiscordLink = "https://discord.gg/7aR7kNVt4g"
-})
+    Tab:AddDiscordInvite({
+        DiscordTitle = "Syrex Hub Discord Server",
+        DiscordIcon = "rbxassetid://15786856818",
+        DiscordLink = "https://discord.gg/SyrexHub"
+    })
 ```
 
 Create a Minimize Button
@@ -210,7 +210,7 @@ Create a Minimize Button
 Window:AddMinimizeButton({
   Button = {
     -- Button Properties
-    Image = "rbxassetid://15298567397"
+    Image = "rbxassetid://15786856818"
   },
   UICorner = {true,
     -- Corner Properties

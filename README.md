@@ -115,6 +115,26 @@ local Button = Tab:AddButton({
   Button:Set("New Name")
 ]]
 ```
+## Textbox
+Create a Textbox
+```lua
+local Textbox = Tab:AddTextBox({
+  Name = "Textbox",
+  Default = "Textbox",
+  ClearText = true,
+  Callback = function(Value)
+    -- Your callback logic here using the 'Value' parameter
+  end
+})
+
+--[[
+  Textbox:Callback(function()
+    
+  end)
+  
+  Textbox:Set("New Name")
+]]
+```
 
 ## Toggle
 Create a Toggle
